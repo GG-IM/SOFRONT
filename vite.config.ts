@@ -1,7 +1,9 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
+const API_URL = "https://soback-dwgchhasgecnfqc6.canadacentral-01.azurewebsites.net";
+
+
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
@@ -10,7 +12,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3001',
+        target: `${API_URL}`,
         changeOrigin: true,
         secure: false,
       },

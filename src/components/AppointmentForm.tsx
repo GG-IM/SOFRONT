@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, User, FileText, Plus } from 'lucide-react';
 // import { useApp } from '../context/AppContext';
 // import { mockDoctors } from '../data/mockData';
-
+const API_URL = "https://soback-dwgchhasgecnfqc6.canadacentral-01.azurewebsites.net";
 const AppointmentForm: React.FC = () => {
   // const { addAppointment } = useApp();
   const [formData, setFormData] = useState({
@@ -18,7 +18,7 @@ const AppointmentForm: React.FC = () => {
   const [doctors, setDoctors] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/doctors')
+    fetch(`${API_URL}/api/doctors`)
       .then(res => res.json())
       .then(data => setDoctors(data))
       .catch(() => setDoctors([]));
@@ -78,7 +78,7 @@ const AppointmentForm: React.FC = () => {
     };
 
     try {
-      const res = await fetch('http://localhost:3001/api/appointments', {
+      const res = await fetch(`${API_URL}/api/appointments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(appointmentData)

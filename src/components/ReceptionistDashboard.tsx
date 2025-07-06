@@ -3,7 +3,7 @@ import { Calendar, Clock, User, Plus, List, TrendingUp, Users } from 'lucide-rea
 // import { useApp } from '../context/AppContext';
 import AppointmentForm from './AppointmentForm';
 import AppointmentList from './AppointmentList';
-
+const API_URL = "https://soback-dwgchhasgecnfqc6.canadacentral-01.azurewebsites.net";
 const ReceptionistDashboard: React.FC = () => {
   // const { appointments } = useApp();
   const [appointments, setAppointments] = useState<any[]>([]);
@@ -11,7 +11,7 @@ const ReceptionistDashboard: React.FC = () => {
 
   // Obtener citas del backend
   useEffect(() => {
-    fetch('http://localhost:3001/api/appointments')
+    fetch(`${API_URL}/api/appointments`)
       .then(res => res.json())
       .then(data => setAppointments(data))
       .catch(() => setAppointments([]));

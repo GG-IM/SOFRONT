@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, User, Phone, FileText, Edit, Trash2, CheckCircle, XCircle, Filter } from 'lucide-react';
-
+const API_URL = "https://soback-dwgchhasgecnfqc6.canadacentral-01.azurewebsites.net";
 const AppointmentList: React.FC = () => {
   const [appointments, setAppointments] = useState<any[]>([]);
   const [filter, setFilter] = useState<'all' | 'pending' | 'confirmed' | 'cancelled'>('all');
@@ -8,7 +8,7 @@ const AppointmentList: React.FC = () => {
 
   // Obtener citas del backend
   useEffect(() => {
-    fetch('http://localhost:3001/api/appointments')
+    fetch(`${API_URL}/api/appointments`)
       .then(res => res.json())
       .then(data => setAppointments(data))
       .catch(() => setAppointments([]));
@@ -16,7 +16,7 @@ const AppointmentList: React.FC = () => {
 
   // Actualizar estado de la cita
   const updateAppointment = async (id: number, update: any) => {
-    const res = await fetch(`http://localhost:3001/api/appointments/${id}`, {
+    const res = await fetch(`${API_URL}/api/appointments/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(update)
@@ -30,7 +30,7 @@ const AppointmentList: React.FC = () => {
 
   // Eliminar cita
   const deleteAppointment = async (id: number) => {
-    const res = await fetch(`http://localhost:3001/api/appointments/${id}`, {
+    const res = await fetch(`${API_URL}/api/appointments/${id}`, {
       method: 'DELETE'
     });
     if (res.ok) {

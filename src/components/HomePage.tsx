@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Users, Clock, TrendingUp, Heart, Shield } from 'lucide-react';
 // import { useApp } from '../context/AppContext';
-
+const API_URL = "https://soback-dwgchhasgecnfqc6.canadacentral-01.azurewebsites.net";
 interface HomePageProps {
   onViewChange: (view: string) => void;
 }
@@ -16,7 +16,7 @@ const HomePage: React.FC<HomePageProps> = ({ onViewChange }) => {
 
   // Obtener citas del backend
   useEffect(() => {
-    fetch('http://localhost:3001/api/appointments')
+    fetch(`${API_URL}/api/appointments`)
       .then(res => res.json())
       .then(data => setAppointments(data))
       .catch(() => setAppointments([]));

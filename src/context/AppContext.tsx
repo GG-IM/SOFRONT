@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { Appointment, User, Notification } from '../types';
 import { mockAppointments, mockUsers } from '../data/mockData';
 //import { useNavigate } from 'react-router-dom';
-
+const API_URL = "https://soback-dwgchhasgecnfqc6.canadacentral-01.azurewebsites.net";
 interface AppContextType {
   currentUser: User | null;
   isAuthenticated: boolean;
@@ -87,7 +87,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const fetchAppointments = async () => {
     try {
-      const res = await fetch('http://localhost:3001/api/appointments');
+      const res = await fetch(`${API_URL}`);
       if (res.ok) {
         const data = await res.json();
         setAppointments(data);
@@ -105,7 +105,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const addAppointment = async (appointmentData: Omit<Appointment, 'id' | 'createdAt'>) => {
     try {
-      const res = await fetch('http://localhost:3001/api/appointments', {
+      const res = await fetch(`${API_URL}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(appointmentData),
@@ -123,7 +123,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const updateAppointment = async (id: string, updates: Partial<Appointment>) => {
     try {
-      const res = await fetch(`http://localhost:3001/api/appointments/${id}`, {
+      const res = await fetch(`${API_URL}/api/appointments/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updates),
@@ -145,7 +145,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const deleteAppointment = async (id: string) => {
     try {
-      const res = await fetch(`http://localhost:3001/api/appointments/${id}`, {
+      const res = await fetch(`${API_URL}/api/appointments/${id}`, {
         method: 'DELETE',
       });
       if (res.ok) {
