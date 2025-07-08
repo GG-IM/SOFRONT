@@ -87,7 +87,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const fetchAppointments = async () => {
     try {
-      const res = await fetch(`${API_URL}`);
+      const res = await fetch(`${API_URL}/api/appointments`);
       if (res.ok) {
         const data = await res.json();
         setAppointments(data);
@@ -105,7 +105,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const addAppointment = async (appointmentData: Omit<Appointment, 'id' | 'createdAt'>) => {
     try {
-      const res = await fetch(`${API_URL}`, {
+      const res = await fetch(`${API_URL}/api/appointments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(appointmentData),
