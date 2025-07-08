@@ -40,7 +40,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const login = async (email: string, password: string): Promise<boolean> => {
     console.log('🔐 Contexto: Intentando login con:', { email });
     try {
-      const res = await fetch('/api/users/login', {
+      const res = await fetch(`${API_URL}/api/users/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
