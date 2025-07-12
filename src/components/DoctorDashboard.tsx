@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, User, Phone, FileText, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
+const API_URL = "https://soback-dwgchhasgecnfqc6.canadacentral-01.azurewebsites.net";
+
 const DoctorDashboard: React.FC = () => {
   const { currentUser, appointments } = useApp();
   const [doctorAppointments, setDoctorAppointments] = useState<any[]>([]);
@@ -12,7 +14,7 @@ const DoctorDashboard: React.FC = () => {
     const fetchDoctorAppointments = async () => {
       try {
         console.log('🔍 Obteniendo citas para el doctor:', currentUser?.id);
-        const res = await fetch(`/api/appointments?doctor_id=${currentUser?.id}`);
+        const res = await fetch(`${API_URL}/api/appointments?doctor_id=${currentUser?.id}`);
         if (res.ok) {
           const data = await res.json();
           console.log('✅ Citas obtenidas:', data);
@@ -21,7 +23,7 @@ const DoctorDashboard: React.FC = () => {
           // Si no hay citas filtradas, obtener todas para debug
           if (data.length === 0) {
             console.log('🔍 No hay citas filtradas, obteniendo todas las citas...');
-            const allRes = await fetch('/api/appointments');
+            const allRes = await fetch(`${API_URL}/api/appointments`);
             if (allRes.ok) {
               const allData = await allRes.json();
               console.log('📋 Todas las citas disponibles:', allData);
@@ -45,7 +47,7 @@ const DoctorDashboard: React.FC = () => {
   // Actualizar estado de la cita
   const updateAppointment = async (id: number, update: any) => {
     try {
-      const res = await fetch(`/api/appointments/${id}`, {
+      const res = await fetch(`${API_URL}/api/appointments/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(update)
